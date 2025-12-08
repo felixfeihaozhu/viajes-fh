@@ -115,6 +115,13 @@
   display: revert !important;  /* 恢复默认display，不强制覆盖 */
 }
 
+/* 佣金设置行：左右并排布局 */
+.bill-mode #commission-row {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 10px !important;
+}
+
 /* 账单模式表格单元格保持table-cell */
 .bill-mode th.bill-only,
 .bill-mode td.bill-only {

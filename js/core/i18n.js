@@ -44,12 +44,18 @@ export const translations = {
     
     // 客户信息
     selectClient: "-- 选择常用客户 --",
+    labelClientName: "客户名称",
     labelTradeName: "商用名称",
+    labelContact: "联系方式",
     labelLegalName: "公司注册名称",
     labelTaxId: "税号",
     labelAddress: "地址",
     labelCommRate: "佣金%",
     labelAddonRate: "附加佣金%",
+    labelInvoiceInfo: "开票信息",
+    hintInvoiceInfo: "（企业客户可选填）",
+    placeholderClientName: "姓名 / 企业名",
+    placeholderContact: "电话 / 邮箱",
     placeholderTradeName: "Ctrip / 携程",
     placeholderTaxId: "e.g. ES12345678",
     btnSave: "保存",
@@ -75,11 +81,17 @@ export const translations = {
     labelExpType: "体验类型",
     labelPriceType: "价格类型",
     labelPax: "人数",
+    labelSalePrice: "卖价",
     labelGross: "直客价",
+    labelBase: "船票价",
     labelTax: "税费",
-    labelHsc: "服务费",
+    labelHsc: "HSC",
     labelRate: "佣金%",
     labelExtra: "额外",
+    labelDescuento: "折扣",
+    labelDescuentoType: "类型",
+    labelDescuentoFixed: "金额",
+    labelDescuentoPercent: "比例%",
     btnAddAddon: "附加产品",
     placeholderAddonName: "附加产品名称",
     labelQty: "数量",
@@ -87,36 +99,70 @@ export const translations = {
     labelComm: "佣金%",
     
     // 支付与备注
+    sectionPaymentMethods: "付款方式",
     labelPayment: "支付信息",
     labelRemarks: "备注",
+    labelTermsConditions: "预定条件",
+    labelCancellationPolicy: "取消政策",
+    hintTermsConditions: "预定条件和取消政策",
     
     // 账单预览
     invoiceTitle: "账单",
     invoiceSubtitle: "BILL",
     labelBillTo: "客户信息",
+    subBillTo: "Bill To",
+    subClientTo: "Client",
     labelCruiseDetails: "航次信息",
+    subCruiseDetails: "Cruise Details",
     labelShipPrint: "船名",
+    subShipPrint: "SHIP",
     labelRoutePrint: "航线",
+    subRoutePrint: "ROUTE",
     labelSailingPrint: "航期",
+    subSailingPrint: "SAILING",
     
     // 表格表头
     thCabinDesc: "舱房说明",
-    thPax: "人数/数量",
+    thPax: "PAX",
+    thPVP: "PVP",
+    thBase: "船票价",
+    thTasa: "税费",
+    thSubtotal: "小计",
     thGrossPrice: "直客价",
     thBaseFare: "净船票",
     thCommission: "佣金",
     thTax: "税费",
-    thHsc: "服务费",
+    thDescuento: "折扣",
     thNetPayable: "结算价",
+    // 报价模式表头
+    thQuotePVP: "卖价",
+    thQuoteBase: "船票",
+    thQuoteTasa: "税费",
+    thQuoteHSC: "HSC",
+    thQuoteDescuento: "折扣",
+    thQuoteSubtotal: "小计",
+    // 报价模式底部
+    labelQuoteTotalBase: "船票总价",
+    labelQuoteTaxHsc: "税费 + HSC总价",
+    labelQuoteSubtotal: "小计总价",
+    labelQuoteDescuento: "折扣总价",
+    labelQuoteTotal: "合计支付",
+    // 报价模式预览区
+    labelBookingTerms: "预定条件",
+    labelCancelPolicy: "取消政策",
     
     // 表格英文副标题
     thSubCabinDesc: "Cabin Description",
     thSubPax: "PAX",
+    thSubBase: "Base",
+    thSubTasa: "Tasa",
+    thSubHsc: "HSC",
+    thSubSubtotal: "Subtotal",
     thSubGrossPrice: "Gross Price",
     thSubBaseFare: "Base Fare",
     thSubCommission: "Comm",
     thSubTax: "Tax",
-    thSubHsc: "HSC",
+    thSubDescuento: "Desc.",
     thSubNetPayable: "Net Payable",
     
     // 总计
@@ -156,6 +202,7 @@ export const translations = {
     confirmUpdate: "更新客户信息？",
     confirmReset: "⚠ 警告：这将清空云端当前账单！",
     confirmRestore: "恢复数据将覆盖云端数据，是否继续？",
+    alertMissingClientName: "请填写客户名称",
     alertMissingCompany: "缺少公司名称",
     alertSaved: "已保存！",
     alertSelectClient: "请先选择要删除的客户",
@@ -170,7 +217,10 @@ export const translations = {
     noItems: "暂无项目 / 无明细",
     days: "天",
     nights: "晚",
-    addonDefault: "附加产品"
+    addonDefault: "附加产品",
+    
+    // 默认预定条件
+    defaultTermsConditions: "邮轮预订需支付15%的订金以确认预订，全款需在出发前至少40个自然日内支付完毕。预订仅在支付订金或全款并向乘客发出确认后方可视为正式确认。"
   },
   
   es: {
@@ -217,12 +267,18 @@ export const translations = {
     
     // 客户信息
     selectClient: "-- Seleccionar Cliente --",
+    labelClientName: "Nombre del Cliente",
     labelTradeName: "Nombre Comercial",
+    labelContact: "Contacto",
     labelLegalName: "Razón Social",
     labelTaxId: "CIF/NIF",
     labelAddress: "Dirección",
     labelCommRate: "Comisión %",
     labelAddonRate: "Comisión Adicional %",
+    labelInvoiceInfo: "Datos de Facturación",
+    hintInvoiceInfo: "(Opcional para clientes empresariales)",
+    placeholderClientName: "Nombre / Empresa",
+    placeholderContact: "Teléfono / Email",
     placeholderTradeName: "Ctrip / 携程",
     placeholderTaxId: "ej. ES12345678",
     btnSave: "Guardar",
@@ -248,11 +304,17 @@ export const translations = {
     labelExpType: "Tipo de Experiencia",
     labelPriceType: "Tipo de Precio",
     labelPax: "PAX",
+    labelSalePrice: "Precio Venta",
     labelGross: "Precio Bruto",
+    labelBase: "Base",
     labelTax: "Impuestos",
-    labelHsc: "Cargos Servicio",
+    labelHsc: "HSC",
     labelRate: "Comisión %",
     labelExtra: "Extra",
+    labelDescuento: "Descuento",
+    labelDescuentoType: "Tipo",
+    labelDescuentoFixed: "Importe",
+    labelDescuentoPercent: "Porcentaje %",
     btnAddAddon: "Producto Adicional",
     placeholderAddonName: "Nombre del Producto Adicional",
     labelQty: "Cantidad",
@@ -260,36 +322,70 @@ export const translations = {
     labelComm: "Comisión %",
     
     // 支付与备注
+    sectionPaymentMethods: "Métodos de Pago",
     labelPayment: "Información de Pago",
     labelRemarks: "Observaciones",
+    labelTermsConditions: "Condiciones de Reserva",
+    labelCancellationPolicy: "Política de Cancelación",
+    hintTermsConditions: "Condiciones y política de cancelación",
     
     // 账单预览
     invoiceTitle: "Nota de Pago",
     invoiceSubtitle: "BILL",
-    labelBillTo: "Información del Cliente",
+    labelBillTo: "Cliente",
+    subBillTo: "Bill To",
+    subClientTo: "Client",
     labelCruiseDetails: "Detalles del Crucero",
+    subCruiseDetails: "Cruise Details",
     labelShipPrint: "BARCO",
+    subShipPrint: "SHIP",
     labelRoutePrint: "RUTA",
+    subRoutePrint: "ROUTE",
     labelSailingPrint: "NAVEGACIÓN",
+    subSailingPrint: "SAILING",
     
     // 表格表头
     thCabinDesc: "Descripción de Cabina",
     thPax: "PAX",
+    thPVP: "PVP",
+    thBase: "Base",
+    thTasa: "Tasa",
+    thSubtotal: "Subtotal",
     thGrossPrice: "Precio Bruto",
     thBaseFare: "Tarifa Base",
     thCommission: "Comisión",
     thTax: "Impuestos",
-    thHsc: "Cargos",
+    thDescuento: "Descuento",
     thNetPayable: "Precio Neto",
+    // 报价模式表头
+    thQuotePVP: "PVP",
+    thQuoteBase: "Base",
+    thQuoteTasa: "Tasa",
+    thQuoteHSC: "HSC",
+    thQuoteDescuento: "Descuento",
+    thQuoteSubtotal: "Subtotal",
+    // 报价模式底部
+    labelQuoteTotalBase: "Total Base",
+    labelQuoteTaxHsc: "Total Tasa + HSC",
+    labelQuoteSubtotal: "Total Subtotal",
+    labelQuoteDescuento: "Total Descuento",
+    labelQuoteTotal: "TOTAL A PAGAR",
+    // 报价模式预览区
+    labelBookingTerms: "Condiciones de Reserva",
+    labelCancelPolicy: "Política de Cancelación",
     
     // 表格英文副标题
     thSubCabinDesc: "Cabin Description",
     thSubPax: "PAX",
+    thSubBase: "BASE",
+    thSubTasa: "TASA",
+    thSubHsc: "HSC",
+    thSubSubtotal: "SUBTOTAL",
     thSubGrossPrice: "Gross Price",
     thSubBaseFare: "Base Fare",
     thSubCommission: "Comm",
     thSubTax: "Tax",
-    thSubHsc: "HSC",
+    thSubDescuento: "DESC.",
     thSubNetPayable: "Net Payable",
     
     // 总计
@@ -329,6 +425,7 @@ export const translations = {
     confirmUpdate: "¿Actualizar información del cliente?",
     confirmReset: "⚠ Advertencia: ¡Esto borrará la nota de pago actual en la nube!",
     confirmRestore: "Restaurar sobrescribirá los datos en la nube. ¿Continuar?",
+    alertMissingClientName: "Por favor, introduzca el nombre del cliente",
     alertMissingCompany: "Falta el nombre de la empresa",
     alertSaved: "¡Guardado!",
     alertSelectClient: "Por favor, seleccione un cliente primero",
@@ -343,7 +440,10 @@ export const translations = {
     noItems: "Sin artículos / Sin detalles",
     days: "días",
     nights: "noches",
-    addonDefault: "Producto Adicional"
+    addonDefault: "Producto Adicional",
+    
+    // 默认预定条件
+    defaultTermsConditions: "En las reservas de viajes combinados (cruceros) se requiere un depósito del 15% para formalizar el contrato, y el pago total debe realizarse como máximo 40 días naturales antes de la salida. La reserva solo se considera confirmada una vez abonado el depósito o el importe total y emitida la confirmación al pasajero."
   },
   
   en: {
@@ -390,12 +490,18 @@ export const translations = {
     
     // 客户信息
     selectClient: "-- Select Client --",
+    labelClientName: "Client Name",
     labelTradeName: "Trade Name",
+    labelContact: "Contact",
     labelLegalName: "Legal Name",
     labelTaxId: "Tax ID / VAT",
     labelAddress: "Address",
     labelCommRate: "Commission %",
     labelAddonRate: "Add-on Commission %",
+    labelInvoiceInfo: "Invoice Details",
+    hintInvoiceInfo: "(Optional for business clients)",
+    placeholderClientName: "Name / Company",
+    placeholderContact: "Phone / Email",
     placeholderTradeName: "Ctrip / 携程",
     placeholderTaxId: "e.g. ES12345678",
     btnSave: "Save",
@@ -421,11 +527,17 @@ export const translations = {
     labelExpType: "Experience Type",
     labelPriceType: "Price Type",
     labelPax: "PAX",
+    labelSalePrice: "Sale Price",
     labelGross: "Gross Price",
+    labelBase: "Base",
     labelTax: "Tax",
-    labelHsc: "Service Charge",
+    labelHsc: "HSC",
     labelRate: "Commission %",
     labelExtra: "Extra",
+    labelDescuento: "Discount",
+    labelDescuentoType: "Type",
+    labelDescuentoFixed: "Amount",
+    labelDescuentoPercent: "Percent %",
     btnAddAddon: "Add-on Product",
     placeholderAddonName: "Add-on Name",
     labelQty: "Qty",
@@ -433,36 +545,70 @@ export const translations = {
     labelComm: "Comm %",
     
     // 支付与备注
+    sectionPaymentMethods: "Payment Methods",
     labelPayment: "Payment Information",
     labelRemarks: "Remarks",
+    labelTermsConditions: "Booking Terms",
+    labelCancellationPolicy: "Cancellation Policy",
+    hintTermsConditions: "Terms and cancellation policy",
     
     // 账单预览
     invoiceTitle: "BILL",
     invoiceSubtitle: "INVOICE",
-    labelBillTo: "Bill To",
+    labelBillTo: "Client",
+    subBillTo: "",
+    subClientTo: "",
     labelCruiseDetails: "Cruise Details",
+    subCruiseDetails: "",
     labelShipPrint: "SHIP",
+    subShipPrint: "",
     labelRoutePrint: "ROUTE",
+    subRoutePrint: "",
     labelSailingPrint: "SAILING",
+    subSailingPrint: "",
     
     // 表格表头
     thCabinDesc: "Cabin Description",
-    thPax: "PAX / Qty",
+    thPax: "PAX",
+    thPVP: "PVP",
+    thBase: "Base",
+    thTasa: "Tax",
+    thSubtotal: "Subtotal",
     thGrossPrice: "Gross Price",
     thBaseFare: "Base Fare",
     thCommission: "Commission",
     thTax: "Tax",
-    thHsc: "HSC",
+    thDescuento: "Discount",
     thNetPayable: "Net Payable",
+    // 报价模式表头
+    thQuotePVP: "Sale Price",
+    thQuoteBase: "Base",
+    thQuoteTasa: "Tax",
+    thQuoteHSC: "HSC",
+    thQuoteDescuento: "Discount",
+    thQuoteSubtotal: "Subtotal",
+    // 报价模式底部
+    labelQuoteTotalBase: "Total Base",
+    labelQuoteTaxHsc: "Total Tax + HSC",
+    labelQuoteSubtotal: "Total Subtotal",
+    labelQuoteDescuento: "Total Discount",
+    labelQuoteTotal: "TOTAL PAYABLE",
+    // 报价模式预览区
+    labelBookingTerms: "Booking Terms",
+    labelCancelPolicy: "Cancellation Policy",
     
     // 表格英文副标题
     thSubCabinDesc: "Cabin Description",
     thSubPax: "PAX",
+    thSubBase: "BASE",
+    thSubTasa: "TAX",
+    thSubHsc: "HSC",
+    thSubSubtotal: "SUBTOTAL",
     thSubGrossPrice: "Gross Price",
     thSubBaseFare: "Base Fare",
     thSubCommission: "Comm",
     thSubTax: "Tax",
-    thSubHsc: "HSC",
+    thSubDescuento: "DISC.",
     thSubNetPayable: "Net Payable",
     
     // 总计
@@ -502,6 +648,7 @@ export const translations = {
     confirmUpdate: "Update client information?",
     confirmReset: "⚠ Warning: This will clear the current cloud bill!",
     confirmRestore: "Restore will overwrite Cloud Data. Continue?",
+    alertMissingClientName: "Please enter client name",
     alertMissingCompany: "Missing Company Name",
     alertSaved: "Saved!",
     alertSelectClient: "Please select a client first",
@@ -516,7 +663,10 @@ export const translations = {
     noItems: "No Items / No Details",
     days: "days",
     nights: "nights",
-    addonDefault: "Add-on Product"
+    addonDefault: "Add-on Product",
+    
+    // 默认预定条件
+    defaultTermsConditions: "For cruise bookings, a 15% deposit is required to confirm the reservation, and the full payment must be made at least 40 calendar days before departure. The booking is only considered confirmed once the deposit or full amount has been paid and confirmation has been issued to the passenger."
   }
 };
 
@@ -525,7 +675,10 @@ let currentLang = localStorage.getItem('appLanguage') || 'zh';
 
 // 获取翻译文本
 export function t(key) {
-  return translations[currentLang]?.[key] || translations['zh'][key] || key;
+  // 使用 nullish coalescing 确保空字符串也能正确返回
+  const value = translations[currentLang]?.[key];
+  if (value !== undefined && value !== null) return value;
+  return translations['zh'][key] ?? key;
 }
 
 // 切换语言

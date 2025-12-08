@@ -38,6 +38,16 @@ async function loadConfig(mode = 'bill') {
                 defaults: { 
                     payment: 'Bank: CAIXABANK\nName: FH GLOBAL, S.L.\nSWIFT: CAIXESBBXXX\nAccount: ES4521003304042200150167', 
                     remarks: '', 
+                    termsConditions: {
+                        zh: '邮轮预订需支付15%的订金以确认预订，全款需在出发前至少40个自然日内支付完毕。预订仅在支付订金或全款并向乘客发出确认后方可视为正式确认。',
+                        es: 'En las reservas de viajes combinados (cruceros) se requiere un depósito del 15% para formalizar el contrato, y el pago total debe realizarse como máximo 40 días naturales antes de la salida. La reserva solo se considera confirmada una vez abonado el depósito o el importe total y emitida la confirmación al pasajero.',
+                        en: 'For cruise bookings, a 15% deposit is required to confirm the reservation, and the full payment must be made at least 40 calendar days before departure. The booking is only considered confirmed once the deposit or full amount has been paid and confirmation has been issued to the passenger.'
+                    },
+                    cancellationPolicy: {
+                        zh: '所有取消和修改均需支付手续费，且必须针对同一舱房的所有乘客一并办理。特价票和/或临期票不可取消或更改。取消条件和适用比例取决于出发前的天数，具体请咨询代理或邮轮公司官网。更换乘客或日期仅可在允许的期限内进行，需支付相应费用，且须经邮轮公司确认。如遇不可抗力或外部原因，相关申请将按邮轮公司政策处理。',
+                        es: 'Todas las cancelaciones y modificaciones conllevan costes de gestión y deben ser tramitadas para todos los pasajeros de la misma cabina. Las tarifas especiales y/o de última hora no permiten cancelación ni cambios. Las condiciones y porcentajes aplicables a las cancelaciones dependen de los días previos a la salida; consulte los detalles en la agencia o en la web de la naviera. Los cambios de pasajero o de fecha solo pueden realizarse dentro de los plazos permitidos y con las tarifas correspondientes, siempre sujetos a confirmación por parte de la naviera. En situaciones de fuerza mayor o causas externas, las solicitudes se gestionarán conforme a la política de la compañía.',
+                        en: 'All cancellations and modifications incur processing fees and must be processed for all passengers in the same cabin. Special and/or last-minute fares do not allow cancellation or changes. The conditions and percentages applicable to cancellations depend on the days before departure; please consult the agency or the cruise line\'s website for details. Passenger or date changes can only be made within the permitted deadlines and with the corresponding fees, always subject to confirmation by the cruise line. In situations of force majeure or external causes, requests will be handled according to the company\'s policy.'
+                    },
                     adminPassword: '0901' 
                 }
             };
@@ -62,7 +72,21 @@ async function loadConfig(mode = 'bill') {
             experienceTypes: [],
             priceTypes: [],
             addonProducts: [],
-            defaults: { payment: '', remarks: '', adminPassword: '0901' }
+            defaults: { 
+                payment: 'Bank: CAIXABANK\nName: FH GLOBAL, S.L.\nSWIFT: CAIXESBBXXX\nAccount: ES4521003304042200150167', 
+                remarks: '', 
+                termsConditions: {
+                    zh: '邮轮预订需支付15%的订金以确认预订，全款需在出发前至少40个自然日内支付完毕。预订仅在支付订金或全款并向乘客发出确认后方可视为正式确认。',
+                    es: 'En las reservas de viajes combinados (cruceros) se requiere un depósito del 15% para formalizar el contrato, y el pago total debe realizarse como máximo 40 días naturales antes de la salida. La reserva solo se considera confirmada una vez abonado el depósito o el importe total y emitida la confirmación al pasajero.',
+                    en: 'For cruise bookings, a 15% deposit is required to confirm the reservation, and the full payment must be made at least 40 calendar days before departure. The booking is only considered confirmed once the deposit or full amount has been paid and confirmation has been issued to the passenger.'
+                },
+                cancellationPolicy: {
+                    zh: '所有取消和修改均需支付手续费，且必须针对同一舱房的所有乘客一并办理。特价票和/或临期票不可取消或更改。取消条件和适用比例取决于出发前的天数，具体请咨询代理或邮轮公司官网。更换乘客或日期仅可在允许的期限内进行，需支付相应费用，且须经邮轮公司确认。如遇不可抗力或外部原因，相关申请将按邮轮公司政策处理。',
+                    es: 'Todas las cancelaciones y modificaciones conllevan costes de gestión y deben ser tramitadas para todos los pasajeros de la misma cabina. Las tarifas especiales y/o de última hora no permiten cancelación ni cambios. Las condiciones y porcentajes aplicables a las cancelaciones dependen de los días previos a la salida; consulte los detalles en la agencia o en la web de la naviera. Los cambios de pasajero o de fecha solo pueden realizarse dentro de los plazos permitidos y con las tarifas correspondientes, siempre sujetos a confirmación por parte de la naviera. En situaciones de fuerza mayor o causas externas, las solicitudes se gestionarán conforme a la política de la compañía.',
+                    en: 'All cancellations and modifications incur processing fees and must be processed for all passengers in the same cabin. Special and/or last-minute fares do not allow cancellation or changes. The conditions and percentages applicable to cancellations depend on the days before departure; please consult the agency or the cruise line\'s website for details. Passenger or date changes can only be made within the permitted deadlines and with the corresponding fees, always subject to confirmation by the cruise line. In situations of force majeure or external causes, requests will be handled according to the company\'s policy.'
+                },
+                adminPassword: '0901' 
+            }
         };
         return CONFIG_DATA;
     }
@@ -203,6 +227,18 @@ window.switchMode = async function(mode) {
     // 更新浏览器标签页标题
     updateDocumentTitle();
     
+    // 更新客户信息子标题（账单模式用 Bill To，其他模式用 Client）
+    const clientSubLabel = document.getElementById('client-sub-label');
+    if (clientSubLabel) {
+        if (mode === 'bill') {
+            clientSubLabel.setAttribute('data-i18n', 'subBillTo');
+            clientSubLabel.textContent = t('subBillTo');
+        } else {
+            clientSubLabel.setAttribute('data-i18n', 'subClientTo');
+            clientSubLabel.textContent = t('subClientTo');
+        }
+    }
+    
     // 保存模式选择到 localStorage
     localStorage.setItem('viewMode', mode);
     
@@ -264,12 +300,44 @@ function updateUILanguage() {
         el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
     });
     
+    // 更新带 data-i18n-placeholder 的元素
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        el.placeholder = t(key);
+    });
+    
     // 更新浏览器标签页标题
     updateDocumentTitle();
     
     // 重新渲染项目输入框（包含多语言文本）
     if (window.items && window.items.length > 0) {
         window.renderItemInputs();
+    }
+    
+    // 报价模式：如果预定条件是默认值，则自动切换语言
+    const termsEl = document.getElementById('termsConditions');
+    if (termsEl && currentMode === 'quote') {
+        const currentValue = termsEl.value.trim();
+        const allDefaults = getAllDefaultTerms();
+        // 检查当前值是否是任一语言的默认值
+        if (allDefaults.some(d => d.trim() === currentValue)) {
+            termsEl.value = getDefaultTermsConditions(currentLang);
+            const termsBox = termsEl.closest('.input-box');
+            if (termsBox) termsBox.classList.add('has-val');
+        }
+    }
+    
+    // 报价模式：如果取消政策是默认值，则自动切换语言
+    const cancelEl = document.getElementById('cancellationPolicy');
+    if (cancelEl && currentMode === 'quote') {
+        const currentValue = cancelEl.value.trim();
+        const allDefaults = getAllDefaultCancellationPolicies();
+        // 检查当前值是否是任一语言的默认值
+        if (allDefaults.some(d => d.trim() === currentValue)) {
+            cancelEl.value = getDefaultCancellationPolicy(currentLang);
+            const cancelBox = cancelEl.closest('.input-box');
+            if (cancelBox) cancelBox.classList.add('has-val');
+        }
     }
 }
 
@@ -286,11 +354,101 @@ function getDefaultRemarks() {
     return CONFIG_DATA?.defaults?.remarks || "请在账单生成后24个小时内付款。\nPlease settle the payment within 24 hours";
 }
 
+// 默认预定条件（多语言版本）
+const DEFAULT_TERMS = {
+    zh: "邮轮预订需支付15%的订金以确认预订，全款需在出发前至少40个自然日内支付完毕。预订仅在支付订金或全款并向乘客发出确认后方可视为正式确认。",
+    es: "En las reservas de viajes combinados (cruceros) se requiere un depósito del 15% para formalizar el contrato, y el pago total debe realizarse como máximo 40 días naturales antes de la salida. La reserva solo se considera confirmada una vez abonado el depósito o el importe total y emitida la confirmación al pasajero.",
+    en: "For cruise bookings, a 15% deposit is required to confirm the reservation, and the full payment must be made at least 40 calendar days before departure. The booking is only considered confirmed once the deposit or full amount has been paid and confirmation has been issued to the passenger."
+};
+
+// 默认取消政策（多语言版本）
+const DEFAULT_CANCELLATION = {
+    zh: "所有取消和修改均需支付手续费，且必须针对同一舱房的所有乘客一并办理。特价票和/或临期票不可取消或更改。取消条件和适用比例取决于出发前的天数，具体请咨询代理或邮轮公司官网。更换乘客或日期仅可在允许的期限内进行，需支付相应费用，且须经邮轮公司确认。如遇不可抗力或外部原因，相关申请将按邮轮公司政策处理。",
+    es: "Todas las cancelaciones y modificaciones conllevan costes de gestión y deben ser tramitadas para todos los pasajeros de la misma cabina. Las tarifas especiales y/o de última hora no permiten cancelación ni cambios. Las condiciones y porcentajes aplicables a las cancelaciones dependen de los días previos a la salida; consulte los detalles en la agencia o en la web de la naviera. Los cambios de pasajero o de fecha solo pueden realizarse dentro de los plazos permitidos y con las tarifas correspondientes, siempre sujetos a confirmación por parte de la naviera. En situaciones de fuerza mayor o causas externas, las solicitudes se gestionarán conforme a la política de la compañía.",
+    en: "All cancellations and modifications incur processing fees and must be processed for all passengers in the same cabin. Special and/or last-minute fares do not allow cancellation or changes. The conditions and percentages applicable to cancellations depend on the days before departure; please consult the agency or the cruise line's website for details. Passenger or date changes can only be made within the permitted deadlines and with the corresponding fees, always subject to confirmation by the cruise line. In situations of force majeure or external causes, requests will be handled according to the company's policy."
+};
+
+function getDefaultTermsConditions(lang) {
+    const currentLang = lang || getCurrentLanguage();
+    // 优先从 Firebase 配置获取（支持多语言格式）
+    const configTerms = CONFIG_DATA?.defaults?.termsConditions;
+    if (configTerms) {
+        // 如果是对象格式（多语言），取对应语言
+        if (typeof configTerms === 'object' && configTerms[currentLang]) {
+            return configTerms[currentLang];
+        }
+        // 如果是字符串格式（旧格式），直接返回
+        if (typeof configTerms === 'string') {
+            return configTerms;
+        }
+    }
+    // 使用本地默认值
+    return DEFAULT_TERMS[currentLang] || DEFAULT_TERMS.es;
+}
+
+// 获取所有语言的默认预定条件（用于检测是否为默认值）
+function getAllDefaultTerms() {
+    const configTerms = CONFIG_DATA?.defaults?.termsConditions;
+    const allTerms = [];
+    
+    // 添加本地默认值
+    Object.values(DEFAULT_TERMS).forEach(t => allTerms.push(t));
+    
+    // 添加 Firebase 配置中的值
+    if (configTerms) {
+        if (typeof configTerms === 'object') {
+            Object.values(configTerms).forEach(t => allTerms.push(t));
+        } else if (typeof configTerms === 'string') {
+            allTerms.push(configTerms);
+        }
+    }
+    
+    return allTerms;
+}
+
+function getDefaultCancellationPolicy(lang) {
+    const currentLang = lang || getCurrentLanguage();
+    // 优先从 Firebase 配置获取（支持多语言格式）
+    const configPolicy = CONFIG_DATA?.defaults?.cancellationPolicy;
+    if (configPolicy) {
+        // 如果是对象格式（多语言），取对应语言
+        if (typeof configPolicy === 'object' && configPolicy[currentLang]) {
+            return configPolicy[currentLang];
+        }
+        // 如果是字符串格式（旧格式），直接返回
+        if (typeof configPolicy === 'string') {
+            return configPolicy;
+        }
+    }
+    // 使用本地默认值
+    return DEFAULT_CANCELLATION[currentLang] || DEFAULT_CANCELLATION.es;
+}
+
+// 获取所有语言的默认取消政策（用于检测是否为默认值）
+function getAllDefaultCancellationPolicies() {
+    const configPolicy = CONFIG_DATA?.defaults?.cancellationPolicy;
+    const allPolicies = [];
+    
+    // 添加本地默认值
+    Object.values(DEFAULT_CANCELLATION).forEach(p => allPolicies.push(p));
+    
+    // 添加 Firebase 配置中的值
+    if (configPolicy) {
+        if (typeof configPolicy === 'object') {
+            Object.values(configPolicy).forEach(p => allPolicies.push(p));
+        } else if (typeof configPolicy === 'string') {
+            allPolicies.push(configPolicy);
+        }
+    }
+    
+    return allPolicies;
+}
+
 function getAdminPassword() {
     return CONFIG_DATA?.defaults?.adminPassword || "fh2025";
 }
 
-const defaultItem = { name: "", ref: "", type: "", exp: "", price: "", qty: "", base: "", tax: "", hsc: "", rate: "", extra: "", addons: [] };
+const defaultItem = { name: "", ref: "", type: "", exp: "", price: "", qty: "", base: "", tax: "", hsc: "", rate: "", extra: "", descuento: "", descuentoPercent: "", addons: [] };
 
 // --- Helpers ---
 // 扩展 utils.js 中的 clearField，添加特定字段的自动保存逻辑
@@ -326,8 +484,35 @@ window.toggleClientDetails = function() {
   wrapper.style.display = (wrapper.style.display === 'none' || wrapper.style.display === '') ? 'block' : 'none';
 }
 
+window.toggleInvoiceInfo = function() {
+  const wrapper = document.getElementById('invoice-info-wrapper');
+  const icon = document.getElementById('invoice-toggle-icon');
+  if (wrapper.style.display === 'none' || wrapper.style.display === '') {
+    wrapper.style.display = 'block';
+    icon.textContent = '▼';
+  } else {
+    wrapper.style.display = 'none';
+    icon.textContent = '▶';
+  }
+}
+
 window.togglePayment = function() {
   const wrapper = document.getElementById('payment-wrapper');
+  wrapper.style.display = (wrapper.style.display === 'none' || wrapper.style.display === '') ? 'block' : 'none';
+}
+
+window.toggleTerms = function() {
+  const wrapper = document.getElementById('terms-wrapper');
+  wrapper.style.display = (wrapper.style.display === 'none' || wrapper.style.display === '') ? 'block' : 'none';
+}
+
+window.toggleCancellation = function() {
+  const wrapper = document.getElementById('cancellation-wrapper');
+  wrapper.style.display = (wrapper.style.display === 'none' || wrapper.style.display === '') ? 'block' : 'none';
+}
+
+window.toggleRemarks = function() {
+  const wrapper = document.getElementById('remarks-wrapper');
   wrapper.style.display = (wrapper.style.display === 'none' || wrapper.style.display === '') ? 'block' : 'none';
 }
 
@@ -593,29 +778,44 @@ function renderDatalist(id, arr) {
 }
 
 function renderClientSelect() {
-  const sel=document.getElementById('clientSelect'); 
-  sel.innerHTML=`<option value="" data-i18n="selectClient">${t('selectClient')}</option>`;
-  (window.clients||[]).forEach((c,i)=>{ const label=c.tradeName?`${c.tradeName} (${c.company})`:c.company; const opt=document.createElement('option'); opt.value=i; opt.text=label; sel.appendChild(opt); });
+  const sel = document.getElementById('clientSelect'); 
+  sel.innerHTML = `<option value="" data-i18n="selectClient">${t('selectClient')}</option>`;
+  (window.clients || []).forEach((c, i) => { 
+    // 优先显示客户名称，如果有公司信息则附加显示
+    let label = c.tradeName || c.company || '未命名客户';
+    if (c.company && c.tradeName && c.company !== c.tradeName) {
+      label = `${c.tradeName} (${c.company})`;
+    }
+    const opt = document.createElement('option'); 
+    opt.value = i; 
+    opt.text = label; 
+    sel.appendChild(opt); 
+  });
 }
 window.saveClient = function() {
   console.log('💾 Saving client...');
-  const company=document.getElementById('billCompany').value.trim(); 
-  if(!company) return alert(t('alertMissingCompany'));
+  const tradeName = document.getElementById('billTradeName').value.trim();
+  const company = document.getElementById('billCompany').value.trim(); 
+  
+  // 客户名称是必填项（直客姓名或企业名）
+  if(!tradeName) return alert(t('alertMissingClientName'));
   
   const newClient={ 
-    tradeName:document.getElementById('billTradeName').value, 
-    company, 
-    address:document.getElementById('billAddress').value, 
-    rate:document.getElementById('billDefaultRate').value||0, 
-    addonRate:document.getElementById('billAddonRate').value||0, 
-    taxId:document.getElementById('billTaxId').value || '' 
+    tradeName: tradeName, 
+    contact: document.getElementById('billContact').value || '',
+    company: company,
+    address: document.getElementById('billAddress').value, 
+    rate: document.getElementById('billDefaultRate').value || 0, 
+    addonRate: document.getElementById('billAddonRate').value || 0, 
+    taxId: document.getElementById('billTaxId').value || '' 
   };
   
-  const idx=window.clients.findIndex(c=>c.company===company); 
+  // 使用客户名称（tradeName）作为唯一标识
+  const idx = window.clients.findIndex(c => c.tradeName === tradeName); 
   let newClientsArr = [...window.clients];
   
-  if(idx>=0){ 
-    if(confirm(t('confirmUpdate'))) newClientsArr[idx]=newClient; 
+  if(idx >= 0){ 
+    if(confirm(t('confirmUpdate'))) newClientsArr[idx] = newClient; 
     else return; 
   } else newClientsArr.push(newClient);
   
@@ -687,13 +887,46 @@ window.deleteClient = function() {
 }
 
 window.selectClient = function() {
-  const idx=document.getElementById('clientSelect').value; if(idx==="") return;
-  const c=window.clients[idx]; 
-  document.getElementById('billTradeName').value=c.tradeName||''; document.getElementById('billCompany').value=c.company; document.getElementById('billAddress').value=c.address; document.getElementById('billDefaultRate').value=c.rate||0; document.getElementById('billAddonRate').value=c.addonRate||0; document.getElementById('billTaxId').value=c.taxId||'';
-  ['billTradeName','billCompany','billAddress','billDefaultRate','billTaxId','billAddonRate'].forEach(id => window.checkClear(document.getElementById(id)));
-  const newRate=Number(c.rate)||0; const newAddonRate=Number(c.addonRate)||0;
-  if(window.items.length>0){ window.items.forEach(i=> { i.rate=newRate; if(i.addons) i.addons.forEach(a=>a.rate=newAddonRate); }); window.renderItemInputs(); }
-  defaultItem.rate=newRate; window.updateState();
+  const idx = document.getElementById('clientSelect').value; 
+  if(idx === "") return;
+  const c = window.clients[idx]; 
+  
+  // 填充客户基本信息
+  document.getElementById('billTradeName').value = c.tradeName || ''; 
+  document.getElementById('billContact').value = c.contact || '';
+  document.getElementById('billCompany').value = c.company || ''; 
+  document.getElementById('billAddress').value = c.address || ''; 
+  document.getElementById('billDefaultRate').value = c.rate || 0; 
+  document.getElementById('billAddonRate').value = c.addonRate || 0; 
+  document.getElementById('billTaxId').value = c.taxId || '';
+  
+  // 更新输入框样式
+  ['billTradeName', 'billContact', 'billCompany', 'billAddress', 'billDefaultRate', 'billTaxId', 'billAddonRate'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) window.checkClear(el);
+  });
+  
+  // 如果有企业开票信息，自动展开开票信息区域
+  if (c.company || c.taxId) {
+    const wrapper = document.getElementById('invoice-info-wrapper');
+    const icon = document.getElementById('invoice-toggle-icon');
+    if (wrapper && wrapper.style.display === 'none') {
+      wrapper.style.display = 'block';
+      if (icon) icon.textContent = '▼';
+    }
+  }
+  
+  const newRate = Number(c.rate) || 0; 
+  const newAddonRate = Number(c.addonRate) || 0;
+  if(window.items.length > 0) { 
+    window.items.forEach(i => { 
+      i.rate = newRate; 
+      if(i.addons) i.addons.forEach(a => a.rate = newAddonRate); 
+    }); 
+    window.renderItemInputs(); 
+  }
+  defaultItem.rate = newRate; 
+  window.updateState();
 }
 
 window.renderItemInputs = function() {
@@ -716,7 +949,8 @@ window.renderItemInputs = function() {
                  </div>
                  <div class="addon-num-wrapper"><input type="number" placeholder="${t('labelQty')}" value="${ad.qty}" oninput="updateAddon(${index}, ${aIdx}, 'qty', this.value)"></div>
                  <div class="addon-num-wrapper wide"><input type="number" placeholder="${t('labelUnit')}" value="${ad.amount}" oninput="updateAddon(${index}, ${aIdx}, 'amount', this.value)"></div>
-                 <div class="addon-num-wrapper"><input type="number" placeholder="${t('labelComm')}" value="${ad.rate}" oninput="updateAddon(${index}, ${aIdx}, 'rate', this.value)" title="${t('labelComm')}"></div>
+                 <div class="addon-num-wrapper bill-only"><input type="number" placeholder="${t('labelComm')}" value="${ad.rate}" oninput="updateAddon(${index}, ${aIdx}, 'rate', this.value)" title="${t('labelComm')}"></div>
+                 <div class="addon-num-wrapper quote-only"><input type="number" placeholder="${t('labelDescuento')}" value="${ad.descuento || 0}" oninput="updateAddon(${index}, ${aIdx}, 'descuento', this.value)" title="${t('labelDescuento')}"></div>
                  <div class="addon-col-del"><span style="color:#ef4444; cursor:pointer; font-size:12px;" onclick="removeAddon(${index}, ${aIdx})"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></div>
               </div>`;
         });
@@ -755,11 +989,13 @@ window.renderItemInputs = function() {
       </div>
       <div class="item-grid-btm">
          <div><label>${t('labelPax')}</label><div class="input-box"><input type="number" value="${item.qty}" oninput="updateItem(${index}, 'qty', this.value)"></div></div>
-         <div><label>${t('labelGross')}</label><div class="input-box"><input type="number" value="${item.base}" oninput="updateItem(${index}, 'base', this.value)"></div></div>
-         <div><label>${t('labelTax')}</label><div class="input-box"><input type="number" value="${item.tax}" oninput="updateItem(${index}, 'tax', this.value)"></div></div>
+         <div><label>${currentMode === 'quote' ? t('labelSalePrice') : t('labelGross')}</label><div class="input-box"><input type="number" value="${item.base}" oninput="updateItem(${index}, 'base', this.value)"></div></div>
+         <div><label>${currentMode === 'quote' ? t('thTasa') : t('labelTax')}</label><div class="input-box"><input type="number" value="${item.tax}" oninput="updateItem(${index}, 'tax', this.value)"></div></div>
          <div><label>${t('labelHsc')}</label><div class="input-box"><input type="number" value="${item.hsc}" oninput="updateItem(${index}, 'hsc', this.value)"></div></div>
-         <div><label>${t('labelRate')}</label><div class="input-box"><input type="number" value="${item.rate}" oninput="updateItem(${index}, 'rate', this.value)" placeholder="比例"></div></div>
-         <div><label>${t('labelExtra')}</label><div class="input-box"><input type="number" value="${item.extra}" oninput="updateItem(${index}, 'extra', this.value)" placeholder="金额"></div></div>
+         <div class="bill-only"><label>${t('labelRate')}</label><div class="input-box"><input type="number" value="${item.rate}" oninput="updateItem(${index}, 'rate', this.value)" placeholder="比例"></div></div>
+         <div class="bill-only"><label>${t('labelExtra')}</label><div class="input-box"><input type="number" value="${item.extra}" oninput="updateItem(${index}, 'extra', this.value)" placeholder="金额"></div></div>
+         <div class="quote-only"><label>${t('labelDescuento')}</label><div class="input-box"><input type="number" value="${item.descuento || 0}" oninput="updateItem(${index}, 'descuento', this.value)" placeholder="0"></div></div>
+         <div class="quote-only"><label>%</label><div class="input-box"><input type="number" value="${item.descuentoPercent || 0}" oninput="updateItem(${index}, 'descuentoPercent', this.value)" placeholder="0" max="100"></div></div>
       </div>
       <div class="addon-row-wrap">${addonsHtml}<button class="btn btn-addon" onclick="addAddon(${index})">➡️ ${t('btnAddAddon')}</button></div>
     `;
@@ -799,7 +1035,10 @@ function updateStateInternal() {
   document.querySelectorAll('[id]').forEach(el => {
     if(el.closest('.pane-form') && !el.closest('#items-container') && !['clientSelect','sailingStart','sailingEnd'].includes(el.id)) {
       const target = document.querySelector(`[data-bind="${el.id}"]`);
-      if(el.id === 'billCompany') {
+      if(el.id === 'billContact') {
+           const elPv = document.getElementById('pv-billContact');
+           if(elPv) elPv.textContent = el.value || '';
+      } else if(el.id === 'billCompany') {
            const tradeNameVal = document.getElementById('billTradeName').value;
            const elPv = document.getElementById('pv-billCompany');
            if(elPv) { elPv.textContent = el.value; if(tradeNameVal && tradeNameVal.trim() !== '') elPv.classList.add('is-sub'); else elPv.classList.remove('is-sub'); }
@@ -839,21 +1078,33 @@ function updateStateInternal() {
 
   const tbody = document.getElementById('preview-items-body');
   tbody.innerHTML = '';
-  let tBase=0, tTax=0, tHSC=0, tComm=0, totalGrossPrice = 0, tAddonTotal = 0;
+  let tBase=0, tTax=0, tHSC=0, tComm=0, totalGrossPrice = 0, tAddonTotal = 0, tDescuento = 0, tSubtotal = 0;
 
   window.items.forEach(item => {
     const qty = Number(item.qty)||0;
-    const grossPrice = Number(item.base)||0; 
+    const salePrice = Number(item.base)||0; // 卖价
     const tax = Number(item.tax)||0;
     const hsc = Number(item.hsc)||0;
     const rate = Number(item.rate)||0;
-    const extra = Number(item.extra)||0; 
+    const extra = Number(item.extra)||0;
+    const descuento = Number(item.descuento)||0; // 固定折扣金额
+    const descuentoPercent = Number(item.descuentoPercent)||0; // 折扣百分比
     
-    const commBase = grossPrice - tax - hsc - extra;
+    // 计算 Base = 卖价 - 税费 - 服务费
+    const base = salePrice - tax - hsc;
+    const subtotal = salePrice; // 小计（未折扣前）
+    
+    // 报价模式：折扣计算（基于卖价PVP，B2C模式）
+    const discountFromPercent = salePrice * (descuentoPercent / 100);
+    const totalDiscount = descuento + discountFromPercent;
+    const finalPrice = salePrice - totalDiscount;
+    
+    // 账单模式：佣金计算
+    const commBase = salePrice - tax - hsc - extra;
     const comm = (commBase * (rate/100)) + extra;
-    const net = grossPrice - comm; 
+    const net = salePrice - comm;
     
-    tBase += commBase; tTax += tax; tHSC += hsc; tComm += comm; totalGrossPrice += grossPrice;
+    tBase += base; tTax += tax; tHSC += hsc; tComm += comm; totalGrossPrice += salePrice; tDescuento += totalDiscount; tSubtotal += finalPrice;
 
     const cabinDesc = [item.type, item.exp, item.price].filter(Boolean).join(' / ');
     const descParts = [item.name, item.ref, cabinDesc].filter(Boolean);
@@ -864,47 +1115,88 @@ function updateStateInternal() {
         item.addons.forEach(ad => {
             const aQty = Number(ad.qty) || 1;
             const unit = Number(ad.amount)||0;
-            const adGross = aQty * unit; 
+            const adGross = aQty * unit;
             const r = Number(ad.rate)||0;
             const adComm = adGross * (r/100);
             const adNet = adGross - adComm;
+            const adDescuento = Number(ad.descuento)||0;
+            const adFinal = adGross - adDescuento;
             
-            tAddonTotal += adGross; totalGrossPrice += adGross; tComm += adComm;
+            tAddonTotal += adGross; totalGrossPrice += adGross; tComm += adComm; tDescuento += adDescuento;
             
             addonsRows += `
               <tr class="row-addon">
                   <td class="addon-desc"><div>${ad.desc || t('addonDefault')}</div></td>
                   <td class="num">${aQty}</td>
-                  <td class="num">${window.formatMoney(adGross)}</td>
+                  <!-- 报价模式列: PVP → Base → Tasa → HSC → Descuento → Subtotal -->
+                  <td class="num quote-only">${window.formatMoney(adGross)}</td>
+                  <td class="num quote-only">-</td>
+                  <td class="num quote-only">-</td>
+                  <td class="num quote-only">-</td>
+                  <td class="num quote-only quote-descuento-col text-red">${adDescuento > 0 ? '- ' + window.formatMoney(adDescuento) : '-'}</td>
+                  <td class="num quote-only text-bold">${window.formatMoney(adFinal)}</td>
+                  <!-- 账单模式列 -->
+                  <td class="num bill-only">${window.formatMoney(adGross)}</td>
                   <td class="num bill-only">-</td>
                   <td class="num bill-only text-red"><div>- ${window.formatMoney(adComm)}</div></td>
-                  <td class="num">-</td>
-                  <td class="num">-</td>
+                  <td class="num bill-only">-</td>
+                  <td class="num bill-only">-</td>
                   <td class="num bill-only text-bold">${window.formatMoney(adNet)}</td>
               </tr>`;
         });
     }
 
+    // 账单模式佣金显示
     let commHtml = `<div class="text-red">- ${window.formatMoney(comm)}</div>`;
     if (rate > 0 || extra > 0) {
         let detailStr = `(${rate}%`; if(extra > 0) detailStr += ` + ${extra}`; detailStr += `)`;
         commHtml += `<div class="comm-detail">${detailStr}</div>`;
+    }
+    
+    // 报价模式折扣显示
+    let descuentoHtml = totalDiscount > 0 ? `<div class="text-red">- ${window.formatMoney(totalDiscount)}</div>` : '-';
+    if (descuentoPercent > 0 || descuento > 0) {
+        let detailStr = '';
+        if (descuentoPercent > 0) detailStr += `${descuentoPercent}%`;
+        if (descuento > 0) detailStr += (detailStr ? ' + ' : '') + window.formatMoney(descuento);
+        if (detailStr) descuentoHtml += `<div class="comm-detail">(${detailStr})</div>`;
     }
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><div style="font-weight:600; color:#1f2937">${fullNameDesc || '-'}</div></td>
       <td class="num">${qty}</td>
-      <td class="num">${window.formatMoney(grossPrice)}</td>
+      <!-- 报价模式列: PVP → Base → Tasa → HSC → Descuento → Subtotal -->
+      <td class="num quote-only">${window.formatMoney(salePrice)}</td>
+      <td class="num quote-only">${window.formatMoney(base)}</td>
+      <td class="num quote-only">${window.formatMoney(tax)}</td>
+      <td class="num quote-only">${window.formatMoney(hsc)}</td>
+      <td class="num quote-only quote-descuento-col">${descuentoHtml}</td>
+      <td class="num quote-only text-bold">${window.formatMoney(finalPrice)}</td>
+      <!-- 账单模式列 -->
+      <td class="num bill-only">${window.formatMoney(salePrice)}</td>
       <td class="num bill-only">${window.formatMoney(commBase)}</td>
       <td class="num bill-only">${commHtml}</td>
-      <td class="num">${window.formatMoney(tax)}</td>
-      <td class="num">${window.formatMoney(hsc)}</td>
+      <td class="num bill-only">${window.formatMoney(tax)}</td>
+      <td class="num bill-only">${window.formatMoney(hsc)}</td>
       <td class="num bill-only text-bold">${window.formatMoney(net)}</td>
     `;
     tbody.appendChild(tr);
     if(addonsRows) tbody.insertAdjacentHTML('beforeend', addonsRows);
   });
+
+  // 报价模式：根据是否有折扣来显示/隐藏折扣列和折扣行（通过 CSS 类控制）
+  if (currentMode === 'quote') {
+    const hasDescuento = tDescuento > 0;
+    const paper = document.getElementById('invoice-paper');
+    if (paper) {
+      if (hasDescuento) {
+        paper.classList.add('has-descuento');
+      } else {
+        paper.classList.remove('has-descuento');
+      }
+    }
+  }
 
   if(window.items.length===0) tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#ccc;padding:20px;">${t('noItems')}</td></tr>`;
 
@@ -929,8 +1221,33 @@ function updateStateInternal() {
   document.getElementById('display-commission').textContent = '- EUR ' + window.formatMoney(tComm);
   document.getElementById('display-net').textContent = window.formatMoney(net);
   
-  // 报价模式总价（直客价）
-  document.getElementById('display-quote-total').textContent = window.formatMoney(gross);
+  // 报价模式总价（折扣后最终价格）
+  const quoteNet = gross - tDescuento;
+  document.getElementById('display-quote-total').textContent = window.formatMoney(quoteNet);
+  
+  // 报价模式：显示 Total Base
+  const displayQuoteBase = document.getElementById('display-quote-base');
+  if (displayQuoteBase) {
+    displayQuoteBase.textContent = window.formatMoney(tBase);
+  }
+  
+  // 报价模式：显示 Tasa + HSC
+  const displayQuoteTaxHsc = document.getElementById('display-quote-taxhsc');
+  if (displayQuoteTaxHsc) {
+    displayQuoteTaxHsc.textContent = window.formatMoney(tTax + tHSC);
+  }
+  
+  // 报价模式：显示小计（每行subtotal的总和）
+  const displayQuoteSubtotal = document.getElementById('display-quote-subtotal');
+  if (displayQuoteSubtotal) {
+    displayQuoteSubtotal.textContent = window.formatMoney(tSubtotal);
+  }
+  
+  // 报价模式：显示折扣总额
+  const displayQuoteDescuento = document.getElementById('display-quote-descuento');
+  if (displayQuoteDescuento) {
+    displayQuoteDescuento.textContent = tDescuento > 0 ? '- ' + window.formatMoney(tDescuento) : '0.00';
+  }
   
   // 票据模式总价（支付金额和待支付金额）
   const paidAmount = 0; // 可在未来从输入框获取
@@ -1055,6 +1372,8 @@ function subscribeToDraft() {
         const defaults = {
             payment: getDefaultPayment(),
             remarks: getDefaultRemarks(),
+            termsConditions: getDefaultTermsConditions(),
+            cancellationPolicy: getDefaultCancellationPolicy(),
             invDate: new Date().toISOString().split('T')[0]
         };
 
@@ -1083,6 +1402,24 @@ function subscribeToDraft() {
             const remBox = remEl.closest('.input-box');
             if (remEl.value && remEl.value.trim() !== '') remBox.classList.add('has-val');
             else remBox.classList.remove('has-val');
+
+            // Apply Terms Conditions (报价模式默认值)
+            const termsEl = document.getElementById('termsConditions');
+            if (termsEl) {
+                termsEl.value = (remoteFields.termsConditions && remoteFields.termsConditions.trim()) ? remoteFields.termsConditions : defaults.termsConditions;
+                const termsBox = termsEl.closest('.input-box');
+                if (termsEl.value && termsEl.value.trim() !== '') termsBox.classList.add('has-val');
+                else termsBox.classList.remove('has-val');
+            }
+
+            // Apply Cancellation Policy (报价模式默认值)
+            const cancelEl = document.getElementById('cancellationPolicy');
+            if (cancelEl) {
+                cancelEl.value = (remoteFields.cancellationPolicy && remoteFields.cancellationPolicy.trim()) ? remoteFields.cancellationPolicy : defaults.cancellationPolicy;
+                const cancelBox = cancelEl.closest('.input-box');
+                if (cancelEl.value && cancelEl.value.trim() !== '') cancelBox.classList.add('has-val');
+                else cancelBox.classList.remove('has-val');
+            }
 
             // Apply other fields
             Object.entries(remoteFields).forEach(([k, v]) => {
@@ -1114,6 +1451,23 @@ function subscribeToDraft() {
             document.getElementById('invDate').value = defaults.invDate;
             document.getElementById('payment').value = defaults.payment;
             document.getElementById('remarks').value = defaults.remarks;
+            
+            // 报价模式默认预定条件
+            const termsEl = document.getElementById('termsConditions');
+            if (termsEl) {
+                termsEl.value = defaults.termsConditions;
+                const termsBox = termsEl.closest('.input-box');
+                if (termsBox) termsBox.classList.add('has-val');
+            }
+            
+            // 报价模式默认取消政策
+            const cancelEl = document.getElementById('cancellationPolicy');
+            if (cancelEl) {
+                cancelEl.value = defaults.cancellationPolicy;
+                const cancelBox = cancelEl.closest('.input-box');
+                if (cancelBox) cancelBox.classList.add('has-val');
+            }
+            
             window.items = [{ ...defaultItem, addons:[] }];
             window.renderItemInputs();
             
@@ -1133,10 +1487,14 @@ window.resetForm = function() {
       set(ref(db, getModePath('draft')), null); 
       document.getElementById('invDate').value = new Date().toISOString().split('T')[0];
       document.getElementById('payment').value = getDefaultPayment();
-      document.getElementById('remarks').value = getDefaultRemarks();
+      
+      const remarksEl = document.getElementById('remarks');
+      if (remarksEl) remarksEl.value = getDefaultRemarks();
+      
       document.getElementById('invNo').value = "";
       document.getElementById('clientSelect').value = "";
       document.getElementById('billTradeName').value = "";
+      document.getElementById('billContact').value = "";
       document.getElementById('billCompany').value = "";
       document.getElementById('billTaxId').value = "";
       document.getElementById('billAddress').value = "";
@@ -1146,7 +1504,31 @@ window.resetForm = function() {
       document.getElementById('route').value = "";
       document.getElementById('sailingStart').value = "";
       document.getElementById('sailingEnd').value = "";
-      // Removed global Ref reset
+      
+      // 报价模式专用字段（预定条件和取消政策使用默认值）
+      const termsEl = document.getElementById('termsConditions');
+      const cancelEl = document.getElementById('cancellationPolicy');
+      if (termsEl) {
+        termsEl.value = getDefaultTermsConditions();
+        const termsBox = termsEl.closest('.input-box');
+        if (termsBox) termsBox.classList.add('has-val');
+      }
+      if (cancelEl) {
+        cancelEl.value = getDefaultCancellationPolicy();
+        const cancelBox = cancelEl.closest('.input-box');
+        if (cancelBox) cancelBox.classList.add('has-val');
+      }
+      
+      // 收起开票信息区域
+      const invoiceWrapper = document.getElementById('invoice-info-wrapper');
+      const invoiceIcon = document.getElementById('invoice-toggle-icon');
+      if (invoiceWrapper) invoiceWrapper.style.display = 'none';
+      if (invoiceIcon) invoiceIcon.textContent = '▶';
+      
+      // 收起条款区域
+      const termsWrapper = document.getElementById('terms-wrapper');
+      if (termsWrapper) termsWrapper.style.display = 'none';
+      
       window.items = [{ ...defaultItem, addons:[] }];
       window.renderItemInputs(); 
       window.updateState();
