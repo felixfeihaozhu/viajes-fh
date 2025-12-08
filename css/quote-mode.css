@@ -1,0 +1,66 @@
+/**
+ * 报价模式专属样式
+ * B2C客户报价 - 隐藏敏感信息
+ */
+
+/* 报价模式下的footer-right */
+.quote-mode .footer-right {
+  width: 280px !important;  /* 缩小宽度，让内容更紧凑 */
+  min-width: 280px !important;
+  max-width: 280px !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 报价模式总价框 */
+.quote-mode .total-box {
+  background: var(--primary);
+  color: white;
+  padding: 14px 16px;
+  border-radius: 6px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.quote-mode .total-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.quote-mode .total-title .en {
+  display: block;
+  font-size: 10px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.quote-mode .total-value {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* 显示报价专属元素 */
+.quote-mode .quote-only {
+  display: flex !important;
+}
+
+/* 隐藏账单专属元素 */
+.quote-mode .bill-only {
+  display: none !important;
+}
+
+/* 隐藏其他模式元素 */
+.quote-mode .ticket-only,
+.quote-mode .compare-only {
+  display: none !important;
+}
+
+/* 注意：表格列宽规则已在 style.css 中统一定义，无需重复 */

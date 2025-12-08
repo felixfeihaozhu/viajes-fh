@@ -1,0 +1,75 @@
+/**
+ * 票据模式专属样式
+ * 支付凭证 - 跟踪已付/待付金额
+ */
+
+/* 票据模式下的footer-right */
+.ticket-mode .footer-right {
+  width: 280px !important;  /* 缩小宽度，让内容更紧凑 */
+  min-width: 280px !important;
+  max-width: 280px !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 票据模式总价框 */
+.ticket-mode .total-box {
+  padding: 14px 16px !important;
+  border-radius: 6px !important;
+  margin-top: 16px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+  color: white !important;
+}
+
+/* 支付金额（已付） - 使用统一的深蓝色 */
+.ticket-mode .total-box.ticket-only:has(#display-ticket-paid) {
+  background: #002b49 !important;  /* 深蓝色 #002b49 */
+}
+
+/* 待支付金额 - 淡淡的灰色 */
+.ticket-mode .total-box.ticket-only:has(#display-ticket-pending) {
+  background: #94a3b8 !important;  /* 淡淡的灰色，柔和不刺眼 */
+}
+
+.ticket-mode .total-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ticket-mode .total-title .en {
+  display: block;
+  font-size: 10px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.ticket-mode .total-value {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* 显示票据专属元素 */
+.ticket-mode .ticket-only {
+  display: flex !important;
+}
+
+/* 隐藏账单专属元素 */
+.ticket-mode .bill-only {
+  display: none !important;
+}
+
+/* 隐藏其他模式元素 */
+.ticket-mode .quote-only,
+.ticket-mode .compare-only {
+  display: none !important;
+}
+
+/* 注意：表格列宽规则已在 style.css 中统一定义，无需重复 */
