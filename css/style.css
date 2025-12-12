@@ -657,6 +657,14 @@ body[lang="es"] .inv-title { font-size: 28px; }
   display: flex !important;
 }
 
+/* 票据模式输入区默认隐藏 */
+.ticket-inputs {
+  display: none !important;
+}
+.ticket-mode .ticket-inputs {
+  display: block !important;
+}
+
 
 /* 对比模式表单：只显示 compare-inputs，隐藏其他录入 */
 .pane-form.compare-mode .form-group:not(.compare-inputs) { display: none !important; }

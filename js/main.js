@@ -1211,6 +1211,12 @@ function updateStateInternal() {
     return;
   }
   
+  // 票据模式：使用专属预览更新
+  if (currentMode === 'ticket' && window.TicketMode) {
+    window.TicketMode.updatePreview();
+    // 继续执行基础字段绑定
+  }
+  
   // 账单/报价/票据模式：更新完整预览区
   document.querySelectorAll('[id]').forEach(el => {
     if(el.closest('.pane-form') && !el.closest('#items-container') && !['clientSelect','sailingStart','sailingEnd'].includes(el.id)) {
@@ -1480,7 +1486,7 @@ function updateComparePreview() {
 function getFieldsData() {
   const data = {};
   document.querySelectorAll('.pane-form input:not([type=file]):not([type=checkbox]), .pane-form textarea').forEach(el => {
-    if(el.id && !el.closest('#items-container') && !el.list && el.id!=='clientSelect') data[el.id] = el.value;
+    if(el.id && !el.closest('#items-container') && !el.closest('#ticket-products-container') && !el.list && el.id!=='clientSelect') data[el.id] = el.value;
   });
   data['ship'] = document.getElementById('ship').value;
   data['route'] = document.getElementById('route').value;
@@ -1491,6 +1497,12 @@ function getFieldsData() {
   const showQuoteTotalsEl = document.getElementById('showQuoteTotals');
   if (showQuoteTotalsEl) {
     data['showQuoteTotals'] = showQuoteTotalsEl.checked;
+  }
+  
+  // 票据模式专用：保存票据产品和支付信息
+  if (currentMode === 'ticket' && window.TicketMode) {
+    const ticketData = window.TicketMode.getFormData();
+    Object.assign(data, ticketData);
   }
   
   return data;
@@ -1688,6 +1700,11 @@ function subscribeToDraft() {
                window.renderItemInputs();
             }
             
+            // 票据模式：加载票据专属数据
+            if (currentMode === 'ticket' && window.TicketMode) {
+              window.TicketMode.loadFromDraft(remoteFields);
+            }
+            
             // 更新预览区，但不触发保存（因为 isLoadingFromFirebase = true）
             window.updateStateWithoutSave();
             
@@ -1788,6 +1805,11 @@ window.resetForm = function() {
       // 收起条款区域
       const termsWrapper = document.getElementById('terms-wrapper');
       if (termsWrapper) termsWrapper.style.display = 'none';
+      
+      // 票据模式：重置票据专属数据
+      if (window.TicketMode) {
+        window.TicketMode.reset();
+      }
       
       window.items = [{ ...defaultItem, addons:[] }];
       window.renderItemInputs(); 

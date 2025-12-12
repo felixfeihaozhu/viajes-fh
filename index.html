@@ -256,6 +256,82 @@
             </div>
           </div>
         </div>
+        <!-- 票据模式专属预览区 -->
+        <div class="ticket-preview" style="display: none;">
+          <div class="ticket-voucher">
+            <!-- 票据顶部撕开线 -->
+            <div class="ticket-tear-line top"></div>
+            
+            <!-- 客户信息区 -->
+            <div class="ticket-client-bar">
+              <div class="ticket-client-info">
+                <span class="ticket-client-label" data-i18n="labelClient">客户</span>
+                <span class="ticket-client-name" id="ticket-preview-client">-</span>
+              </div>
+            </div>
+            
+            <!-- 产品明细区 -->
+            <div class="ticket-products-section">
+              <div class="ticket-section-title">
+                <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <span data-i18n="sectionProductDetails">产品明细</span>
+              </div>
+              <div class="ticket-products-list" id="ticket-preview-products">
+                <!-- 产品条目将动态生成 -->
+              </div>
+            </div>
+            
+            <!-- 费用汇总区 -->
+            <div class="ticket-summary-section">
+              <div class="ticket-summary-row">
+                <span class="summary-label" data-i18n="labelTotalAmount">总金额</span>
+                <span class="summary-value" id="ticket-preview-total">0.00 EUR</span>
+              </div>
+              <div class="ticket-summary-row paid">
+                <span class="summary-label" data-i18n="labelPaidAmount">已付金额</span>
+                <span class="summary-value" id="ticket-preview-paid">0.00 EUR</span>
+              </div>
+              <div class="ticket-summary-row pending">
+                <span class="summary-label" data-i18n="labelPendingAmount">待付金额</span>
+                <span class="summary-value" id="ticket-preview-pending">0.00 EUR</span>
+              </div>
+            </div>
+            
+            <!-- 支付状态徽章 -->
+            <div class="ticket-status-badge" id="ticket-status-badge">
+              <div class="status-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              </div>
+              <div class="status-text" id="ticket-status-text" data-i18n="statusPending">待支付</div>
+            </div>
+            
+            <!-- 支付详情区 -->
+            <div class="ticket-payment-details">
+              <div class="ticket-section-title small">
+                <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                <span data-i18n="sectionPaymentInfo">支付信息</span>
+              </div>
+              <div class="ticket-payment-info">
+                <div class="payment-info-row">
+                  <span class="payment-info-label" data-i18n="labelPaymentDate">支付日期</span>
+                  <span class="payment-info-value" id="ticket-preview-payment-date">-</span>
+                </div>
+                <div class="payment-info-row">
+                  <span class="payment-info-label" data-i18n="labelPaymentMethod">支付方式</span>
+                  <span class="payment-info-value" id="ticket-preview-payment-method">-</span>
+                </div>
+                <div class="payment-info-row note" id="ticket-payment-note-row" style="display: none;">
+                  <span class="payment-info-label" data-i18n="labelNote">备注</span>
+                  <span class="payment-info-value" id="ticket-preview-payment-note">-</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 票据底部撕开线 -->
+            <div class="ticket-tear-line bottom"></div>
+          </div>
+        </div>
+        
         <div class="compare-preview" style="display: none;">
           <div class="compare-container">
             <div class="compare-preview-grid">
@@ -681,6 +757,72 @@
         </div>
       </div>
 
+      <!-- 票据模式：产品明细 -->
+      <div class="form-group ticket-inputs" style="display:none">
+        <div class="form-title">
+          <span data-i18n="sectionTicketProducts">产品明细</span>
+          <div>
+            <button class="btn btn-primary btn-sm" onclick="addTicketProduct()">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span data-i18n="btnAddProduct">添加产品</span>
+            </button>
+          </div>
+        </div>
+        <div id="ticket-products-container"></div>
+      </div>
+      
+      <!-- 票据模式：支付信息 -->
+      <div class="form-group ticket-inputs ticket-payment-section" style="display:none">
+        <div class="form-title" style="color: #059669;">
+          <span data-i18n="sectionTicketPayment">支付信息</span>
+        </div>
+        <div class="ticket-payment-grid">
+          <div class="ticket-payment-item">
+            <label data-i18n="labelTicketPaidAmount">已付金额</label>
+            <div class="input-box">
+              <input type="number" id="ticketPaidAmount" placeholder="0.00" oninput="updateTicketTotals(); checkClear(this)">
+              <span class="clear-x" onclick="clearField(this)"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+            </div>
+          </div>
+          <div class="ticket-payment-item">
+            <label data-i18n="labelTicketPaymentDate">支付日期</label>
+            <div class="merged-group">
+              <div class="input-box">
+                <input type="text" id="ticketPaymentDate" placeholder="DD/MM/YYYY" onblur="smartDateInput(this)" oninput="checkClear(this)">
+                <span class="clear-x" onclick="clearField(this)"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+              </div>
+              <div class="merged-trigger" onclick="openPicker('pickerTicketPayment')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <input type="date" id="pickerTicketPayment" class="hidden-date-overlay" onchange="pickDate(this, 'ticketPaymentDate')">
+              </div>
+            </div>
+          </div>
+          <div class="ticket-payment-item">
+            <label data-i18n="labelTicketPaymentMethod">支付方式</label>
+            <div class="input-box">
+              <input type="text" id="ticketPaymentMethod" list="paymentMethodList" placeholder="现金/转账/信用卡..." oninput="checkClear(this)">
+              <span class="clear-x" onclick="clearField(this)"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+            </div>
+            <datalist id="paymentMethodList">
+              <option value="现金 Efectivo">
+              <option value="银行转账 Transferencia">
+              <option value="信用卡 Tarjeta">
+              <option value="Bizum">
+              <option value="PayPal">
+            </datalist>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 12px;">
+          <div class="col">
+            <label data-i18n="labelTicketPaymentNote">支付备注</label>
+            <div class="input-box">
+              <textarea id="ticketPaymentNote" rows="2" placeholder="支付相关备注..." oninput="checkClear(this)"></textarea>
+              <span class="clear-x" onclick="clearField(this)"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="form-group">
         <div class="form-title" data-i18n="sectionCruiseInfo">航次信息</div>
         <div class="row">
@@ -699,8 +841,8 @@
         <div id="items-container"></div>
       </div>
 
-      <!-- 付款方式 -->
-      <div class="form-group">
+      <!-- 付款方式（票据模式下隐藏） -->
+      <div class="form-group hide-in-ticket">
         <div class="form-title">
           <span data-i18n="sectionPaymentMethods">付款方式</span>
           <button class="btn btn-sm btn-toggle" onclick="togglePayment()"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> <span data-i18n="btnShowEdit">查看/编辑</span></button>

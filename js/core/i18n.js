@@ -227,7 +227,39 @@ export const translations = {
     addonDefault: "附加产品",
     
     // 默认预定条件
-    defaultTermsConditions: "邮轮预订需支付15%的订金以确认预订，全款需在出发前至少40个自然日内支付完毕。预订仅在支付订金或全款并向乘客发出确认后方可视为正式确认。"
+    defaultTermsConditions: "邮轮预订需支付15%的订金以确认预订，全款需在出发前至少40个自然日内支付完毕。预订仅在支付订金或全款并向乘客发出确认后方可视为正式确认。",
+    
+    // 票据模式专属
+    sectionTicketProducts: "产品明细",
+    btnAddProduct: "添加产品",
+    sectionTicketPayment: "支付信息",
+    labelTicketPaidAmount: "已付金额",
+    labelTicketPaymentDate: "支付日期",
+    labelTicketPaymentMethod: "支付方式",
+    labelTicketPaymentNote: "支付备注",
+    ticketVoucher: "支付凭证",
+    labelClient: "客户",
+    sectionProductDetails: "产品明细",
+    labelTotalAmount: "总金额",
+    labelPaidAmount: "已付金额",
+    labelPendingAmount: "待付金额",
+    sectionPaymentInfo: "支付信息",
+    labelPaymentDate: "支付日期",
+    labelPaymentMethod: "支付方式",
+    labelNote: "备注",
+    statusPending: "待支付",
+    statusPartial: "部分支付",
+    statusPaid: "已支付",
+    labelSupplier: "供应商",
+    labelConfirmNo: "确认号",
+    labelDescription: "产品描述",
+    labelPassengers: "旅客姓名",
+    labelDateStart: "开始日期",
+    labelDateEnd: "结束日期",
+    labelQuantity: "数量",
+    labelUnitPrice: "单价",
+    labelTotalPrice: "总价",
+    labelNotes: "备注"
   },
   
   es: {
@@ -457,7 +489,39 @@ export const translations = {
     addonDefault: "Producto Adicional",
     
     // 默认预定条件
-    defaultTermsConditions: "En las reservas de viajes combinados (cruceros) se requiere un depósito del 15% para formalizar el contrato, y el pago total debe realizarse como máximo 40 días naturales antes de la salida. La reserva solo se considera confirmada una vez abonado el depósito o el importe total y emitida la confirmación al pasajero."
+    defaultTermsConditions: "En las reservas de viajes combinados (cruceros) se requiere un depósito del 15% para formalizar el contrato, y el pago total debe realizarse como máximo 40 días naturales antes de la salida. La reserva solo se considera confirmada una vez abonado el depósito o el importe total y emitida la confirmación al pasajero.",
+    
+    // 票据模式专属
+    sectionTicketProducts: "Detalle de Productos",
+    btnAddProduct: "Añadir Producto",
+    sectionTicketPayment: "Información de Pago",
+    labelTicketPaidAmount: "Importe Pagado",
+    labelTicketPaymentDate: "Fecha de Pago",
+    labelTicketPaymentMethod: "Método de Pago",
+    labelTicketPaymentNote: "Nota de Pago",
+    ticketVoucher: "Comprobante de Pago",
+    labelClient: "Cliente",
+    sectionProductDetails: "Detalle de Productos",
+    labelTotalAmount: "Importe Total",
+    labelPaidAmount: "Importe Pagado",
+    labelPendingAmount: "Importe Pendiente",
+    sectionPaymentInfo: "Información de Pago",
+    labelPaymentDate: "Fecha de Pago",
+    labelPaymentMethod: "Método de Pago",
+    labelNote: "Nota",
+    statusPending: "Pendiente",
+    statusPartial: "Pago Parcial",
+    statusPaid: "Pagado",
+    labelSupplier: "Proveedor",
+    labelConfirmNo: "Nº Confirmación",
+    labelDescription: "Descripción",
+    labelPassengers: "Pasajeros",
+    labelDateStart: "Fecha Inicio",
+    labelDateEnd: "Fecha Fin",
+    labelQuantity: "Cantidad",
+    labelUnitPrice: "Precio Unit.",
+    labelTotalPrice: "Precio Total",
+    labelNotes: "Notas"
   },
   
   en: {
@@ -687,7 +751,39 @@ export const translations = {
     addonDefault: "Add-on Product",
     
     // 默认预定条件
-    defaultTermsConditions: "For cruise bookings, a 15% deposit is required to confirm the reservation, and the full payment must be made at least 40 calendar days before departure. The booking is only considered confirmed once the deposit or full amount has been paid and confirmation has been issued to the passenger."
+    defaultTermsConditions: "For cruise bookings, a 15% deposit is required to confirm the reservation, and the full payment must be made at least 40 calendar days before departure. The booking is only considered confirmed once the deposit or full amount has been paid and confirmation has been issued to the passenger.",
+    
+    // 票据模式专属
+    sectionTicketProducts: "Product Details",
+    btnAddProduct: "Add Product",
+    sectionTicketPayment: "Payment Info",
+    labelTicketPaidAmount: "Amount Paid",
+    labelTicketPaymentDate: "Payment Date",
+    labelTicketPaymentMethod: "Payment Method",
+    labelTicketPaymentNote: "Payment Note",
+    ticketVoucher: "Payment Voucher",
+    labelClient: "Client",
+    sectionProductDetails: "Product Details",
+    labelTotalAmount: "Total Amount",
+    labelPaidAmount: "Amount Paid",
+    labelPendingAmount: "Amount Pending",
+    sectionPaymentInfo: "Payment Info",
+    labelPaymentDate: "Payment Date",
+    labelPaymentMethod: "Payment Method",
+    labelNote: "Note",
+    statusPending: "Pending",
+    statusPartial: "Partial Payment",
+    statusPaid: "Paid",
+    labelSupplier: "Supplier",
+    labelConfirmNo: "Confirmation No.",
+    labelDescription: "Description",
+    labelPassengers: "Passengers",
+    labelDateStart: "Start Date",
+    labelDateEnd: "End Date",
+    labelQuantity: "Quantity",
+    labelUnitPrice: "Unit Price",
+    labelTotalPrice: "Total Price",
+    labelNotes: "Notes"
   }
 };
 
